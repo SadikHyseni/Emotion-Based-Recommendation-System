@@ -1,0 +1,26 @@
+{
+  "manifest_version": 3,
+  "name": "YouTube Emotion-Based Recommender",
+  "version": "1.0",
+  "description": "Captures screenshots of YouTube videos for emotion-based recommendations.",
+  "permissions": ["activeTab", "scripting", "storage","cookies", "tabs"],
+  "host_permissions": ["https://www.youtube.com/*"],
+  "background": {
+      "service_worker": "background.js"
+  },
+  "action": {
+      "default_popup": "popup.html",
+      "default_icon": {
+          "16": "icon.png",
+          "48": "icon.png",
+          "128": "icon.png"
+      }
+  },
+  "content_scripts": [
+      {
+          "matches": ["https://www.youtube.com/watch*"],
+          "js": ["content.js"],
+          "run_at": "document_idle"
+      }
+  ]
+}
