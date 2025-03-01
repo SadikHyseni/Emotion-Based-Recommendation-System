@@ -1,26 +1,38 @@
 {
-  "manifest_version": 3,
-  "name": "YouTube Emotion-Based Recommender",
-  "version": "1.0",
-  "description": "Captures screenshots of YouTube videos for emotion-based recommendations.",
-  "permissions": ["activeTab", "scripting", "storage","cookies", "tabs"],
-  "host_permissions": ["https://www.youtube.com/*"],
-  "background": {
+    "manifest_version": 3,
+    "name": "YouTube Emotion-Based Recommender",
+    "version": "1.0",
+    "description": "Captures screenshots of YouTube videos for emotion-based recommendations.",
+    "permissions": ["activeTab", "scripting", "storage", "cookies", "tabs", "webRequest", "webNavigation"],
+    "host_permissions": ["https://www.youtube.com/*"],
+    "background": {
       "service_worker": "background.js"
-  },
-  "action": {
+    },
+    "externally_connectable": {
+      "matches": ["http://localhost:5000/*"]
+    },
+    "action": {
       "default_popup": "popup.html",
       "default_icon": {
-          "16": "icon.png",
-          "48": "icon.png",
-          "128": "icon.png"
+        "16": "icon.png",
+        "48": "icon.png",
+        "128": "icon.png"
       }
-  },
-  "content_scripts": [
+    },
+    "content_security_policy": {
+      "extension_pages": "script-src 'self'; object-src 'self'"
+    },
+    "web_accessible_resources": [
       {
-          "matches": ["https://www.youtube.com/watch*"],
-          "js": ["content.js"],
-          "run_at": "document_idle"
+        "resources": ["libs/face-api.min.js", "models/*"],
+        "matches": ["<all_urls>"]
       }
-  ]
-}
+    ],
+    "content_scripts": [
+      {
+        "matches": ["https://www.youtube.com/watch*"],
+        "js": ["content.js"],
+        "run_at": "document_idle"
+      }
+    ]
+  }
