@@ -1,0 +1,28 @@
+{
+    "manifest_version": 3,
+    "name": "Emotion Youtube recommendation system",
+    "version": "1.0.0",
+    "description": "Identify people expressions in Youtube",
+    "author": "Sadik hyseni",
+    "icons": {
+        "16": "icon.png",
+        "48": "icon.png",
+        "128": "icon.png"
+    },
+    "content_scripts": [
+        {
+            "matches": ["*://*.youtube.com/*"],
+            "js": ["content.js","face-api.min.js"],
+            "type": "module"
+        }
+    ],
+    "web_accessible_resources": [
+        {
+          "resources": ["models/*"],
+          "matches": ["<all_urls>"]
+        }
+    ],
+    "action": {
+        "default_popup": "popup.html"
+    }
+}
